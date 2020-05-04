@@ -1,0 +1,55 @@
+<h1>{{titulo}}</h1>
+
+<div class="row">
+  <div class="col-md-12">
+    <form [formGroup]="producto" (ngSubmit)="guardarDatos()">
+      <div class="form-group">
+        <label>Id Producto</label>
+        <input type="text" class="form-control" readonly formControlName="iidproducto" />
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" formControlName="nombre" />
+      </div>
+
+      <div class="form-group">
+        <label>Precio</label>
+        <input type="number" class="form-control" min="0" formControlName="precio" />
+      </div>
+
+      <div class="form-group">
+        <label>Categoria</label>
+        <select formControlName="idcategoria" class="form-control" >
+          <option value="">--Seleccione--</option>
+          <option [value]="categoria.iidcategoria" *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Marca</label>
+        <select formControlName="idmarca" class="form-control" >
+          <option value="">--Seleccione--</option>
+          <option [value]="marca.iidmarca" *ngFor="let marca of marcas">{{marca.nombre}}</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Stock</label>
+        <input type="number" class="form-control" min="0" formControlName="stock" />
+      </div>
+
+      <div>
+        <input [disabled]="!producto.valid" type="submit" value="Enviarr" class="btn btn-primary" />
+        <button [routerLink]="['/mantenimiento-producto']" class="btn btn-danger">Regresar</button>
+      </div>
+
+    </form>
+    <div style="margin:1em" *ngIf="producto.valid==false">
+      <div class="alert alert-danger">El formulario  no es valido, verifique que sean correctos los datos</div>
+    </div>
+
+
+  </div>
+</div>
+

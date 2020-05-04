@@ -1,0 +1,51 @@
+<h1>{{titulo}}</h1>
+
+<div class="row">
+  <div class="col-md-12">
+    <form [formGroup]="persona" (ngSubmit)="guardarDatos()">
+      <div class="form-group">
+        <label>Id Persona</label>
+        <input type="text" class="form-control" readonly formControlName="iidpersona" />
+      </div>
+
+      <div class="form-group">
+        <label>Nombre</label>
+        <input type="text" class="form-control" formControlName="nombre" />
+      </div>
+
+      <div class="form-group">
+        <label>Ape.Paterno</label>
+        <input type="text" class="form-control" formControlName="apPaterno" />
+      </div>
+      <div class="form-group">
+        <label>Ape.Materno</label>
+        <input type="text" class="form-control" formControlName="apMaterno" />
+      </div>
+      <div class="form-group">
+        <label>Telefono</label>
+        <input type="number" class="form-control" formControlName="telefono" />
+      </div>
+      <div class="form-group">
+        <label>Correo</label>
+        <input type="text" class="form-control" formControlName="correo" />
+      </div>
+
+      <div class="form-group">
+        <label>Fecha Nacimiento</label>
+        <input type="date" class="form-control" formControlName="fechaNacimiento" />
+      </div>
+
+
+      <div>
+        <input [disabled]="!persona.valid" type="submit" value="Guardar" class="btn btn-primary" />
+        <button [routerLink]="['/mantenimientopersona']" class="btn btn-danger">Regresar</button>
+      </div>
+    </form>
+
+  </div>
+</div>
+<div style="margin:1em" *ngIf="persona.valid==false">
+  <div class="alert alert-danger">El formulario  no es valido, verifique que sean correctos los datos</div>
+
+</div>
+

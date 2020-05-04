@@ -1,0 +1,12 @@
+<label>Ingrese Nombre</label>
+<input type="text" #nombre />
+
+
+<label>Ingrese Codigo</label>
+<input type="text" #codigo />
+
+<input type="button" (click)="filtrar(nombre,codigo)" value="BuscarTotal" class="btn btn-primary" />
+
+<input type="button" (click)="filtrarPorCodigo(codigo)" value="BuscarCodigo" class="btn btn-danger" />
+
+<input type="button" (click)="Limpiar(nombre)" value="Limpiar" class="btn btn-success" />

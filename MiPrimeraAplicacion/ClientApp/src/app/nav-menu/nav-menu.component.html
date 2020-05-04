@@ -1,0 +1,63 @@
+<div class='main-nav'>
+    <div class='navbar navbar-inverse'>
+        <div class='navbar-header'>
+            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+                <span class='sr-only'>Toggle navigation</span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+                <span class='icon-bar'></span>
+            </button>
+            <a class='navbar-brand' [routerLink]='["/"]'>Angular CRUD - @areyes</a>
+        </div>
+        <div class='clearfix'></div>
+        <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
+          <ul class='nav navbar-nav'>
+            <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+              <a [routerLink]='["/filtradoproductocategoria"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-home'></span> Filtrar Producto por categoria
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/filtradoproductonombre"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-education'></span> Filtrar Producto por nombre
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/filtradopersonanombrecompleto"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Filtrar persona nombre
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/filtradotipousuario"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Filtrar usuario por tipo
+              </a>
+            </li>
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/mantenimientopersona"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Mantenimiento Persona
+              </a>
+            </li>
+
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/mantenimiento-producto"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Mantenimiento Producto
+              </a>
+            </li>
+
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Fetch data
+              </a>
+            </li>
+
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/diasemana"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Componente Prueba
+              </a>
+            </li>
+
+
+          </ul>
+        </div>
+    </div>
+</div>

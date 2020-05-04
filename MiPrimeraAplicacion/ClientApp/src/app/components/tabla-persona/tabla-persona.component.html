@@ -1,0 +1,24 @@
+
+
+<br/>
+<table class="table">
+  <thead class="thead-dark">
+    <tr>
+      <th *ngFor="let cabecera of cabeceras">{{cabecera}}</th>
+      <th *ngIf="isMantenimiento==true" >Operaciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let persona of personas">
+      <td>{{persona.iidpersona}}</td>
+      <td>{{persona.nombreCompleto}}</td>
+      <td>{{persona.telefono}}</td>
+      <td>{{persona.correo}}</td>
+      <td *ngIf="isMantenimiento==true">
+        <i [routerLink]="['/persona-form-mantenimiento',persona.iidpersona]" class="glyphicon glyphicon-edit btn btn-primary"></i>
+        <i (click)="eliminar(persona.iidpersona)" class="glyphicon glyphicon-trash btn btn-danger"></i>
+      </td>
+    </tr>
+  </tbody>
+
+</table>
