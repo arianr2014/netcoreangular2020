@@ -18,7 +18,6 @@ export class ProductoFormMantenimientoComponent implements OnInit {
   marcas: any; // variable para almacenar la data de marcas
   titulo: string; // variable para almacenar el nombre del titulo de la pagina editar o nuevo
   parametro: string; // variable para almacenar el id del editar o de la palabra nuevo 
-
   //en el constructor se inyecta lo que se va inmportando 
   constructor(private productoService: ProductoService, private categoriaService: CategoriaService,
     private activateRoute: ActivatedRoute, private route: Router ) {
@@ -28,7 +27,7 @@ export class ProductoFormMantenimientoComponent implements OnInit {
       'idproducto': new FormControl("0"),
       'nombre': new FormControl("", [Validators.required, Validators.maxLength(100)]), //cuando tiene varios validators se coloca []
       'precio': new FormControl("0", Validators.required),
-      'stock': new FormControl("0", Validators.required),
+      'stock': new FormControl("0", [Validators.required, this.noPuntoDecimal]),
       'idmarca': new FormControl("", Validators.required),
       'idcategoria': new FormControl("", Validators.required)
     });
@@ -85,6 +84,19 @@ export class ProductoFormMantenimientoComponent implements OnInit {
       });
     }
   }
+
+
+  //validador personalizado
+  noPuntoDecimal(control: FormControl) {
+    //cuando esta vacio lo toma como null entonces no puede ser convertido a toString()
+    if (control.value != null && control.value != "") {
+      if ((<string>control.value.toString()).indexOf(".") > -1) {
+        return { puntoDecimal: true }
+      }
+    }  
+    return null;
+  }
+
 
 }
 

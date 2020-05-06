@@ -1,6 +1,7 @@
 import { Injectable, Inject } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { core } from '@angular/compiler';
 
 
 @Injectable()
@@ -25,13 +26,18 @@ export class PersonaService {
 
   public recuperarPersona(idPersona) {
 
-    return this.http.get(this.urlBase + "api/Persona/recuperarPersona/" + idPersona).map(res => res.json());
-  }
-
-
-  public eliminarPersona(idPersona) {
-
-    return this.http.get(this.urlBase + "api/Persona/eliminarPersona/" + idPersona).map(res => res.json());
+    return this.http.get(this.urlBase + "api/Persona/recuperarPersona/" + idPersona)
+      .map(res => res.json());
   }
   
+  public eliminarPersona(idPersona) {
+
+    return this.http.get(this.urlBase + "api/Persona/eliminarPersona/" + idPersona)
+      .map(res => res.json());
+  }
+
+  public validarCorreo(id, correo) {
+   return this.http.get(this.urlBase + "api/Persona/validarCorreo/" + id + "/" + correo)
+      .map(res => res.json());
+  }
 }

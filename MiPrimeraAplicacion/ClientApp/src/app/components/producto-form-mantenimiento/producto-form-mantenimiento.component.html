@@ -55,6 +55,10 @@
         <div style="color:red" *ngIf="producto.controls['stock'].errors?.required">
           El stock del producto es obligatorio
         </div>
+
+        <div style="color:red" *ngIf="producto.controls['stock'].errors?.puntoDecimal">
+          Esta prohibido poner un punto decimal
+        </div>
       </div>
 
       <div>
