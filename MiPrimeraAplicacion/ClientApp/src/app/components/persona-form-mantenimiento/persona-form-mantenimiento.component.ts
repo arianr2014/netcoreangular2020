@@ -24,8 +24,8 @@ export class PersonaFormMantenimientoComponent implements OnInit {
         'nombre': new FormControl('',[Validators.required,Validators.maxLength(100)]),
         'apPaterno': new FormControl('',[Validators.required,Validators.maxLength(150)]),
         'apMaterno': new FormControl('',[Validators.required,Validators.maxLength(150)]),
-        'telefono': new FormControl('',[Validators.required, Validators.maxLength(10)]),
-        'correo': new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")]),
+        'telefono': new FormControl('', [Validators.required, Validators.maxLength(10), this.noIniciaCeroTelefono]),
+        'correo': new FormControl('', [Validators.required, Validators.maxLength(100), Validators.pattern("^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$")], this.noRepetirCorreoInsertar.bind(this)),// si queremos validar contra base de datos se coloca como tercer parametro, bind es para que le this haga referencia a la clase le pasamos el contexto, referencia
         'fechaNacimiento': new FormControl('', [Validators.required])
       }
       
@@ -70,18 +70,46 @@ export class PersonaFormMantenimientoComponent implements OnInit {
       var anio = fechaNac[0];
       var mes = fechaNac[1];
       var dia = fechaNac[2];
-      this.persona.controls["fechaNacimiento"].setValue(mes+"/"+dia+"/"+anio);
-      this.personaService.agregarPersona(this.persona.value).subscribe(data => { this.route.navigate(["/mantenimientopersona"]) });
-      //Validamos si es nuevo o editar
 
-      /*if (this.parametro == "nuevo") {
-        this.personaService.agregarPersona(this.persona.value).subscribe(data => { this.route.navigate(["/mantenimientopersona"]) });
-      } else {
+      this.persona.controls["fechaNacimiento"].setValue(mes + "/" + dia + "/" + anio);
 
-      }*/
+      this.personaService.agregarPersona(this.persona.value)
+        .subscribe(data => { this.route.navigate(["/mantenimientopersona"]) });
 
-
-      
     }
   }
+  
+  noIniciaCeroTelefono(control: FormControl) {
+    //cuando esta vacio lo toma como null entonces no puede ser convertido a toString()
+    if (control.value != null) {
+      if ((<string>control.value.toString()).startsWith("0")) {
+        return { iniciaCero: true }
+      }
+    }
+    return null;
+  }
+
+  //validacion asyncrona de correo contra la base de datos
+  noRepetirCorreoInsertar(control: FormControl)
+  {
+    var promesa = new Promise((resolve, reject) => {
+      if (control.value != "" && control.value != null)
+      {
+        this.personaService.validarCorreo(this.persona.controls["iidpersona"].value, control.value)
+          .subscribe(data => {
+            if (data == 1)
+            {
+              resolve({ yaExiste: true });
+            } else
+            {
+              resolve(null);
+            }
+          });       
+      }
+        
+    });
+    return promesa;
+  }
+
+
 }

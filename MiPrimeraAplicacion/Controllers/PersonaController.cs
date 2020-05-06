@@ -179,5 +179,36 @@ namespace MiPrimeraAplicacion.Controllers
             return rpta;
 
         }
+
+
+        [HttpGet]
+        [Route("api/Persona/validarCorreo/{id}/{correo}")]
+        public int ValidarCorreo(int id, string correo)
+        {
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    if (id == 0) {
+                        //cuando id es 0 es un registro nuevo
+                        rpta = bd.Persona.Where(p => p.Correo.ToUpper() == correo.ToUpper()).Count();
+                    }
+                    else
+                    {
+                        //contar cuantos hay sin contar el mismo registro
+                        rpta = bd.Persona.Where(p => p.Correo.ToUpper() == correo.ToUpper() && p.Iidpersona!=id).Count();
+
+                    }
+
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = 0;
+            }
+            return rpta;
+
+        }
     }
 }

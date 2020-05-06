@@ -49,6 +49,12 @@
         <div style="color:red" *ngIf="persona.controls['telefono'].errors?.maxlength">
           Supero la cantidad maxima
         </div>
+
+        <div style="color:red" *ngIf="persona.controls['telefono'].errors?.iniciaCero">
+          El telefono NO debe empezar en cero
+        </div>
+
+
       </div>
       <div class="form-group">
         <label>Correo</label>
@@ -61,6 +67,9 @@
         </div>
         <div style="color:red" *ngIf="persona.controls['correo'].errors?.pattern">
           El correo no tiene el formato correcto
+        </div>
+        <div style="color:red" *ngIf="persona.controls['correo'].errors?.yaExiste">
+          El correo ya existe en la base de datos
         </div>
       </div>
 
