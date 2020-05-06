@@ -32,6 +32,14 @@ export class ProductoService {
   public listarMarcas() {
     return this.http.get(this.urlBase + "api/Producto/listarMarcas").map(res => res.json());
   }
+  public registrarProducto(productoCLS) {
+    var url = this.urlBase + "api/Producto/registrarProducto";
+    return this.http.post(url, productoCLS).map(res => res.json());
+  }
 
+  public eliminarProducto(idProducto) {
+
+    return this.http.get(this.urlBase + "api/Producto/eliminarProducto/" + idProducto).map(res => res.json());
+  }
 }
 

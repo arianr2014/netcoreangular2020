@@ -8,17 +8,30 @@
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let pp of productos">
+    <tr *ngFor="let pp of productos | paginate: { itemsPerPage: 5, currentPage: p }">
       <td>{{pp.idproducto}}</td>
       <td>{{pp.nombre}}</td>
       <td>{{pp.precio}}</td>
       <td>{{pp.stock}}</td>
       <td>{{pp.nombreCategoria}}</td>
       <td *ngIf="isMantenimiento==true">
-        <i [routerLink]="['/producto-form-mantenimiento',pp.iidproducto]" class="glyphicon glyphicon-edit btn btn-primary"></i>
-        <i class="glyphicon glyphicon-trash btn btn-danger"></i>
+        <i [routerLink]="['/producto-form-mantenimiento',pp.idproducto]" class="glyphicon glyphicon-edit btn btn-primary"></i>
+        <i (click)="eliminar(pp.idproducto)" class="glyphicon glyphicon-trash btn btn-danger"></i>
       </td>
     </tr>
- </tbody>
-  
+  </tbody>
+
 </table>
+
+<pagination-controls (pageChange)="p = $event"
+                       maxSize="5"
+                      directionLinks="true"
+                      autoHide="true"
+                     responsive="true"
+                      previousLabel="Anterior"
+                      nextLabel="Siguiente"
+                      screenReaderPaginationLabel="Pagination"
+                      screenReaderPageLabel="page"
+                      screenReaderCurrentLabel="You're on page"
+                     ></pagination-controls>
+

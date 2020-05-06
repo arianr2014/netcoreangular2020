@@ -11,7 +11,7 @@ export class TablaProductoComponent implements OnInit {
 
   @Input() productos: any;
   @Input() isMantenimiento = false;
-
+  p: number = 1;
   cabeceras: string[] = ["Id Producto", "Nombre", "Precio", "Stock", "Nombre Categoria"];
 
   constructor(private productoService: ProductoService) {
@@ -21,6 +21,16 @@ export class TablaProductoComponent implements OnInit {
   ngOnInit() {
 
     this.productoService.getProducto().subscribe(data => this.productos = data);
+  }
+
+  eliminar(idProducto)
+  {
+    //eliminamos y refrescamos la grilla
+    if (confirm("Desea Eliminar") == true) {
+      this.productoService.eliminarProducto(idProducto).subscribe( data => {
+        this.productoService.getProducto().subscribe(data => this.productos = data);
+      });
+    }
   }
 
 }
