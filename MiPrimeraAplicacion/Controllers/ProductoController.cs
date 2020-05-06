@@ -133,6 +133,74 @@ namespace MiPrimeraAplicacion.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/Producto/registrarProducto")]
+        public int RegistrarProducto([FromBody]ProductoCLS oProductoCLS)
+        {
+            int rpta = 0;
+
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    if (oProductoCLS.idproducto == 0)
+                    {
+                        Producto oProducto = new Producto();
+                        oProducto.Nombre = oProductoCLS.nombre;
+                        oProducto.Precio = oProductoCLS.precio;
+                        oProducto.Stock = oProductoCLS.stock;
+                        oProducto.Iidmarca = oProductoCLS.idmarca;
+                        oProducto.Iidcategoria = oProductoCLS.idcategoria;
+                        oProducto.Bhabilitado = 1;
+                        bd.Producto.Add(oProducto);
+                        bd.SaveChanges();
+                        rpta = 1;
+                    }
+                    else
+                    {
+                        Producto oProducto = bd.Producto.Where(p => p.Iidproducto == oProductoCLS.idproducto).First();
+                        oProducto.Nombre = oProductoCLS.nombre;
+                        oProducto.Precio = oProductoCLS.precio;
+                        oProducto.Stock = oProductoCLS.stock;
+                        oProducto.Iidmarca = oProductoCLS.idmarca;
+                        oProducto.Iidcategoria = oProductoCLS.idcategoria;     
+                        bd.SaveChanges();
+                        rpta = 1;
+                    }
+                }
+            }
+            catch (Exception ex) {
+
+            }
+            
+
+            return rpta;
+        }
+
+
+        [HttpGet]
+        [Route("api/Producto/eliminarProducto/{idProducto}")]
+        public int EliminarProducto(int idProducto)
+        {
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+
+                    Producto oProducto = bd.Producto.Where(p => p.Iidproducto == idProducto).First();
+                    oProducto.Bhabilitado = 0;
+                    bd.SaveChanges();
+                    rpta = 1;
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = 0;
+            }
+            return rpta;
+
+        }
 
 
     }

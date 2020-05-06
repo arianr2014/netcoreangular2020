@@ -5,42 +5,60 @@
     <form [formGroup]="producto" (ngSubmit)="guardarDatos()">
       <div class="form-group">
         <label>Id Producto</label>
-        <input type="text" class="form-control" readonly formControlName="iidproducto" />
+        <input type="text" class="form-control" readonly formControlName="idproducto" />
       </div>
 
       <div class="form-group">
         <label>Nombre</label>
         <input type="text" class="form-control" formControlName="nombre" />
+        <div style="color:red" *ngIf="producto.controls['nombre'].errors?.required">
+          El nombre de producto es obligatorio
+        </div>
+        <div style="color:red" *ngIf="producto.controls['nombre'].errors?.maxlength">
+          Supero la longitud maxima
+        </div>
       </div>
 
       <div class="form-group">
         <label>Precio</label>
         <input type="number" class="form-control" min="0" formControlName="precio" />
+        <div style="color:red" *ngIf="producto.controls['precio'].errors?.required">
+          El precio del producto es obligatorio
+        </div>
       </div>
 
       <div class="form-group">
         <label>Categoria</label>
-        <select formControlName="idcategoria" class="form-control" >
+        <select formControlName="idcategoria" class="form-control">
           <option value="">--Seleccione--</option>
           <option [value]="categoria.iidcategoria" *ngFor="let categoria of categorias">{{categoria.nombre}}</option>
         </select>
+        <div style="color:red" *ngIf="producto.controls['idcategoria'].errors?.required">
+          El nombre de la categoria es obligatorio
+        </div>
       </div>
 
       <div class="form-group">
         <label>Marca</label>
-        <select formControlName="idmarca" class="form-control" >
+        <select formControlName="idmarca" class="form-control">
           <option value="">--Seleccione--</option>
           <option [value]="marca.iidmarca" *ngFor="let marca of marcas">{{marca.nombre}}</option>
         </select>
+        <div style="color:red" *ngIf="producto.controls['idmarca'].errors?.required">
+          El nombre de la marca es obligatorio
+        </div>
       </div>
 
       <div class="form-group">
         <label>Stock</label>
         <input type="number" class="form-control" min="0" formControlName="stock" />
+        <div style="color:red" *ngIf="producto.controls['stock'].errors?.required">
+          El stock del producto es obligatorio
+        </div>
       </div>
 
       <div>
-        <input [disabled]="!producto.valid" type="submit" value="Enviarr" class="btn btn-primary" />
+        <input [disabled]="!producto.valid" type="submit" value="Enviar" class="btn btn-primary" />
         <button [routerLink]="['/mantenimiento-producto']" class="btn btn-danger">Regresar</button>
       </div>
 

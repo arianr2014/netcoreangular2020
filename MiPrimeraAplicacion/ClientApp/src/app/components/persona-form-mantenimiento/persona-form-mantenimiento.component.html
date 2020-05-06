@@ -11,28 +11,66 @@
       <div class="form-group">
         <label>Nombre</label>
         <input type="text" class="form-control" formControlName="nombre" />
+        <div style="color:red" *ngIf="persona.controls['nombre'].errors?.required">
+          El nombre de la persona es obligatorio
+        </div>
+        <div style="color:red" *ngIf="persona.controls['nombre'].errors?.maxlength">
+          Supero la cantidad maxima
+        </div>
       </div>
+
 
       <div class="form-group">
         <label>Ape.Paterno</label>
         <input type="text" class="form-control" formControlName="apPaterno" />
+        <div style="color:red" *ngIf="persona.controls['apPaterno'].errors?.required">
+          El apellido paterno de la persona es obligatorio
+        </div>
+        <div style="color:red" *ngIf="persona.controls['apPaterno'].errors?.maxlength">
+          Supero la cantidad maxima
+        </div>
       </div>
       <div class="form-group">
         <label>Ape.Materno</label>
         <input type="text" class="form-control" formControlName="apMaterno" />
+        <div style="color:red" *ngIf="persona.controls['apMaterno'].errors?.required">
+          El apellido materno de la persona es obligatorio
+        </div>
+        <div style="color:red" *ngIf="persona.controls['apMaterno'].errors?.maxlength">
+          Supero la cantidad maxima
+        </div>
       </div>
       <div class="form-group">
         <label>Telefono</label>
         <input type="number" class="form-control" formControlName="telefono" />
+        <div style="color:red" *ngIf="persona.controls['telefono'].errors?.required">
+          El telelfono de la persona es obligatorio
+        </div>
+        <div style="color:red" *ngIf="persona.controls['telefono'].errors?.maxlength">
+          Supero la cantidad maxima
+        </div>
       </div>
       <div class="form-group">
         <label>Correo</label>
         <input type="text" class="form-control" formControlName="correo" />
+        <div style="color:red" *ngIf="persona.controls['correo'].errors?.required">
+          El correo es obligatorio
+        </div>
+        <div style="color:red" *ngIf="persona.controls['correo'].errors?.maxlength">
+          Supero la cantidad maxima
+        </div>
+        <div style="color:red" *ngIf="persona.controls['correo'].errors?.pattern">
+          El correo no tiene el formato correcto
+        </div>
       </div>
 
       <div class="form-group">
         <label>Fecha Nacimiento</label>
         <input type="date" class="form-control" formControlName="fechaNacimiento" />
+        <div style="color:red" *ngIf="persona.controls['fechaNacimiento'].errors?.required">
+         La fecha de nacimiento de la persona es obligatorio
+        </div>
+        
       </div>
 
 
