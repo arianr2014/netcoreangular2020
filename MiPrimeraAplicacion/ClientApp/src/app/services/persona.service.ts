@@ -40,4 +40,12 @@ export class PersonaService {
    return this.http.get(this.urlBase + "api/Persona/validarCorreo/" + id + "/" + correo)
       .map(res => res.json());
   }
+
+  public listarPersonasCombo() {
+    return this.http.get(this.urlBase + "api/Persona/listarPersonasCombo")
+      .map(res => res.json());
+  }
+
+
+
 }

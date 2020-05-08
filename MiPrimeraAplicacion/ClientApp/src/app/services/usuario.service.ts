@@ -21,4 +21,10 @@ export class UsuarioService {
     return this.http.get(this.urlBase + "api/Usuario/listarUsuarioPorTipo/"+idTipo).map(res => res.json());
   }
 
+
+  public validarUsuario(idUsuario, nombre) {
+    return this.http.get(this.urlBase + "api/Usuario/validarUsuario/" + idUsuario + "/" + nombre)
+      .map(res => res.json());
+  }
+
 }

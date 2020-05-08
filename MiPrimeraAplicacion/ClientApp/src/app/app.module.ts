@@ -38,6 +38,8 @@ import { PersonaFormMantenimientoComponent } from './components/persona-form-man
 import { MantenimientoProductoComponent } from './components/mantenimiento-producto/mantenimiento-producto.component';
 import { ProductoFormMantenimientoComponent } from './components/producto-form-mantenimiento/producto-form-mantenimiento.component'
 import { NgxPaginationModule } from 'ngx-pagination';
+import { MantenimientoUsuarioComponent } from './components/mantenimiento-usuario/mantenimiento-usuario.component';
+import { UsuarioFormMantenimientoComponent } from './components/usuario-form-mantenimiento/usuario-form-mantenimiento.component';
 
 @NgModule({
   declarations: [
@@ -62,7 +64,9 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MantenimientoPersonaComponent,
     PersonaFormMantenimientoComponent,
     MantenimientoProductoComponent,
-    ProductoFormMantenimientoComponent
+    ProductoFormMantenimientoComponent,
+    MantenimientoUsuarioComponent,
+    UsuarioFormMantenimientoComponent
   ],
   imports: [
     HttpModule,
@@ -81,7 +85,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
       { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent },
       { path: 'mantenimiento-producto', component: MantenimientoProductoComponent },
       { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent },
-
+      { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent },
+      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent },
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'diasemana', component: DiasSemana },
     ])

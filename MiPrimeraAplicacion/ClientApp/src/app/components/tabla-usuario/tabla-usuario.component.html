@@ -4,6 +4,7 @@
   <thead class="thead-dark">
     <tr>
       <th *ngFor="let cabecera of cabeceras">{{cabecera}}</th>
+      <th *ngIf="isMantenimiento==true">Operaciones</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +13,10 @@
       <td>{{pp.nombreUsuario}}</td>
       <td>{{pp.nombrePersona}}</td>
       <td>{{pp.nombreTipoUsuario}}</td>
+      <td *ngIf="isMantenimiento==true">
+        <i [routerLink]="['/usuario-form-mantenimiento',pp.iidusuario]" class="glyphicon glyphicon-edit btn btn-primary"></i>
+        <i class="glyphicon glyphicon-trash btn btn-danger"></i>
+      </td>
     </tr>
   </tbody>
 

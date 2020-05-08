@@ -44,6 +44,13 @@
               </a>
             </li>
 
+
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/mantenimiento-usuario"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Mantenimiento Usuario
+              </a>
+            </li>
+
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
                 <span class='glyphicon glyphicon-th-list'></span> Fetch data

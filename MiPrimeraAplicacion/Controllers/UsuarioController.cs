@@ -92,6 +92,35 @@ namespace MiPrimeraAplicacion.Controllers
                 return lista;
             }
         }
+
+
+        [HttpGet]
+        [Route("api/usuario/validarUsuario/{idUsuario}/{nombre}")]
+        public int ValidarUsuario(int idUsuario, string nombre)
+        {
+
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd=new BDRestauranteContext())
+                {
+                    if (idUsuario == 0) {
+
+                        rpta= bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == nombre.ToUpper()).Count();
+                    }
+                    else
+                    {
+                        rpta = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == nombre.ToUpper() && p.Iidpersona!=idUsuario).Count();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                rpta = 0;
+            }
+
+            return rpta;
+        }
     }
 
 
