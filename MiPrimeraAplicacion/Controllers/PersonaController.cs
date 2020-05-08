@@ -210,5 +210,29 @@ namespace MiPrimeraAplicacion.Controllers
             return rpta;
 
         }
+
+
+        [HttpGet]
+        [Route("api/Persona/listarPersonasCombo")]
+        public IEnumerable<PersonaCLS> ListarPersonasCombo()
+        {
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+
+                List<PersonaCLS> lista = (from persona in bd.Persona
+                                          where persona.Bhabilitado == 1
+                                          && persona.Btieneusuario==0
+                                          select new PersonaCLS
+                                          {
+                                              iidpersona = persona.Iidpersona,
+                                              nombreCompleto = persona.Nombre + " " + persona.Appaterno + " " + persona.Apmaterno,
+                                              
+                                          }).ToList();
+                return lista;
+            }
+        }
+
+
+
     }
 }

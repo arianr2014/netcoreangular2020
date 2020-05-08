@@ -1,0 +1,90 @@
+<h1>{{titulo}}</h1>
+
+<div>
+  <div class="col-md-12">
+
+    <form [formGroup]="usuario"  (ngSubmit)="guardarDatos()">
+
+      <div class="form-group">
+        <label>Id Usuario</label>
+        <input type="text" readonly class="form-control" formControlName="iidusuario"   />
+      </div>
+
+      <div class="form-group">
+        <label>Nombre Usuario</label>
+        <input type="text" class="form-control" formControlName="nombreUsuario" />
+        <div style="color:red" *ngIf="usuario.controls['nombreUsuario'].errors?.required">
+          El nombre del usuario es obligatorio
+        </div>
+        <div style="color:red" *ngIf="usuario.controls['nombreUsuario'].errors?.maxlength">
+          Supero la longitud maxima
+        </div>
+
+        <div style="color:red" *ngIf="usuario.controls['nombreUsuario'].errors?.yaExiste">
+          Ya existe usuario
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Ingrese contraseña</label>
+        <input type="password" class="form-control" formControlName="contra" />
+        <div style="color:red" *ngIf="usuario.controls['contra'].errors?.required">
+         La contraseña es obligatorio
+        </div>
+        <div style="color:red" *ngIf="usuario.controls['contra'].errors?.maxlength">
+          Supero la longitud maxima
+        </div>
+
+
+      </div>
+
+      <div class="form-group">
+        <label>Repita contraseña</label>
+        <input type="password" class="form-control" formControlName="contra2" />
+        <div style="color:red" *ngIf="usuario.controls['contra2'].errors?.required">
+          La contraseña es obligatorio
+        </div>
+        <div style="color:red" *ngIf="usuario.controls['contra2'].errors?.maxlength">
+          Supero la longitud maxima
+        </div>
+        <div style="color:red" *ngIf="usuario.controls['contra2'].errors?.noIguales">
+          La contraseña no son iguales
+        </div>
+        
+
+      </div>
+
+      <div class="form-group">
+        <label>Persona</label>
+        <select class="form-control" formControlName="iidPersona">
+          <option>--Seleccione--</option>
+          <option [value]="persona.iidpersona" *ngFor="let persona of personas">{{persona.nombreCompleto}}</option>
+        </select>
+        <div style="color:red" *ngIf="usuario.controls['iidPersona'].errors?.required">
+          El nombre de la persona es obligatorio
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <label>Tipo usuario</label>
+        <select class="form-control" formControlName="iidTipoUsuario">
+          <option>--Seleccione--</option>
+          <option [value]="tipoUsuario.iidtipousuario" *ngFor="let tipoUsuario of tiposUsuarios">{{tipoUsuario.nombre}}</option>
+        </select>
+          <div style="color:red" *ngIf="usuario.controls['iidTipoUsuario'].errors?.required">
+            El tipo de usuario es obligatorio
+          </div>
+      </div>
+      <div>
+        <input type="button" value="Enviar" type="submit"  class="btn btn-primary" />
+        <input type="button" value="Regresar" [routerLink]="['/mantenimiento-usuario']" class="btn btn-danger" />
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
