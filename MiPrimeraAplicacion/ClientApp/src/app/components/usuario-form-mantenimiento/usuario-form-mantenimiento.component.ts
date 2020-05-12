@@ -18,6 +18,7 @@ export class UsuarioFormMantenimientoComponent implements OnInit {
   titulo: string;
   tiposUsuarios: any;
   personas: any;
+  ver: boolean;
   constructor(private usuarioService: UsuarioService, private route: Router,
     private activatedRoute: ActivatedRoute,
     private personaService:PersonaService) {
@@ -43,8 +44,32 @@ export class UsuarioFormMantenimientoComponent implements OnInit {
             this.parametro = _parametro["id"];
             if (this.parametro == "nuevo") {
               this.titulo = "Agregando nuevo usario";
+              this.ver = true;
             } else {
               this.titulo = "Editando usuario"
+
+              //areyes: cuando no deseo que se muestren campos en modo edicion
+              //se limpian los validators,
+              this.ver = false;
+              this.usuario.controls["contra"].clearValidators();
+              this.usuario.controls["contra2"].clearValidators();
+              this.usuario.controls["iidPersona"].clearValidators();
+              this.usuario.controls["iidTipoUsuario"].clearValidators();
+
+              //areyes: tambien podemos usar esta seccion para
+              //colocarle valores por defecto a los controles 
+              //Ej. this.usuario.controls["iidPersona"].setValue('22');
+
+
+              //areyes: recuperando datos de bd para editar a travez deñ service
+              this.usuarioService.recuperarUsuario(this.parametro).subscribe(data => {
+                this.usuario.controls["iidusuario"].setValue(data.iidusuario);
+                this.usuario.controls["nombreUsuario"].setValue(data.nombreUsuario);
+                this.usuario.controls["iidTipoUsuario"].setValue(data.iidTipoUsuario);
+
+              });
+
+
             }
       });
 
