@@ -51,6 +51,13 @@
               </a>
             </li>
 
+
+            <li [routerLinkActive]='["link-active"]'>
+              <a [routerLink]='["/login"]' (click)='collapse()'>
+                <span class='glyphicon glyphicon-th-list'></span> Login
+              </a>
+            </li>
+
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/fetch-data"]' (click)='collapse()'>
                 <span class='glyphicon glyphicon-th-list'></span> Fetch data

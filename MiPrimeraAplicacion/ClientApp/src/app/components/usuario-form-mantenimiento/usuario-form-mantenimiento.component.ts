@@ -54,7 +54,13 @@ export class UsuarioFormMantenimientoComponent implements OnInit {
               this.usuario.controls["contra"].clearValidators();
               this.usuario.controls["contra2"].clearValidators();
               this.usuario.controls["iidPersona"].clearValidators();
-              this.usuario.controls["iidTipoUsuario"].clearValidators();
+            //  this.usuario.controls["iidTipoUsuario"].clearValidators();
+
+              //en el caso que no sea parte de la actualizacion colocamos valores
+              //por defecto que no seran parte del update
+              this.usuario.controls["contra"].setValue('1');
+              this.usuario.controls["contra2"].setValue('1');
+              this.usuario.controls["iidPersona"].setValue('1');
 
               //areyes: tambien podemos usar esta seccion para
               //colocarle valores por defecto a los controles 
@@ -109,7 +115,13 @@ export class UsuarioFormMantenimientoComponent implements OnInit {
   }
 
 
-  guardarDatos() {
+  guardarDatos()
+  {
+    if (this.usuario.valid == true) {
+      this.usuarioService.guardarDatos(this.usuario.value).subscribe(res => {
+        this.route.navigate(["/mantenimiento-usuario"]);
+      });
+    }
     
   }
 

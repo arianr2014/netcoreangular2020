@@ -21,5 +21,14 @@ export class TablaUsuarioComponent implements OnInit {
   }
     
   
+  eliminarUsuario(idUsuario) {
+
+    if (confirm("¿Desea eliminar el usuario?") == true) {
+      this.usuarioService.eliminarUsuario(idUsuario).subscribe(data => {
+        this.usuarioService.getUsuario().subscribe(data => this.usuarios = data);
+      });
+    }
+
+  }
 
 }

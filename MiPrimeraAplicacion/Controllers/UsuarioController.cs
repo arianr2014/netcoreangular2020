@@ -147,7 +147,7 @@ namespace MiPrimeraAplicacion.Controllers
 
         [HttpPost]
         [Route("api/usuario/guardarDatos")]
-        public int GuardarDatos(UsuarioCLS oUsuarioCLS) {
+        public int GuardarDatos([FromBody]UsuarioCLS oUsuarioCLS) {
 
             int rpta = 0;
             try {
@@ -209,6 +209,53 @@ namespace MiPrimeraAplicacion.Controllers
             return rpta;
         }
 
+
+        [HttpGet]
+        [Route("api/usuario/eliminarUsuario/{idUsuario}")]
+
+        public int EliminarUsuario(int idUsuario) {
+
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext()) {
+
+                    Usuario oUsuario = bd.Usuario.Where(p => p.Iidusuario == idUsuario).First();
+                    oUsuario.Bhabilitado = 0;
+                    bd.SaveChanges();
+
+
+                }
+
+
+                    rpta = 1;
+            }
+            catch (Exception ex) {
+                rpta = 0;
+            }
+            return rpta;
+        }
+
+        [HttpPost]
+        [Route("api/usuario/login")]
+        public int login(UsuarioCLS oUsuarioCLS)
+        {
+
+            int rpta = 0;
+            using (BDRestauranteContext bd = new BDRestauranteContext())
+            {
+
+                SHA256Managed sha = new SHA256Managed();
+                byte[] dataNoCifrada = Encoding.Default.GetBytes(oUsuarioCLS.contra);
+                byte[] dataCifrada = sha.ComputeHash(dataNoCifrada);
+                string claveCifrada = BitConverter.ToString(dataCifrada).Replace("-", "");
+
+                rpta = bd.Usuario.Where(p => p.Nombreusuario == oUsuarioCLS.nombreUsuario && p.Contra == claveCifrada).Count();
+
+
+            }
+            return rpta;
+        }
 
 
     }
