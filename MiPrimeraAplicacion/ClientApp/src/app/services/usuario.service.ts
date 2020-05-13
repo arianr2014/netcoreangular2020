@@ -27,4 +27,8 @@ export class UsuarioService {
       .map(res => res.json());
   }
 
-}
+  public recuperarUsuario(idUsuario) {
+    return this.http.get(this.urlBase + "api/Usuario/recuperarUsuario/" + idUsuario )
+      .map(res => res.json());
+  }
+ }
