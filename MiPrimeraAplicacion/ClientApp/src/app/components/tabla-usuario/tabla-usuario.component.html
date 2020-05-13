@@ -15,7 +15,7 @@
       <td>{{pp.nombreTipoUsuario}}</td>
       <td *ngIf="isMantenimiento==true">
         <i [routerLink]="['/usuario-form-mantenimiento',pp.iidusuario]" class="glyphicon glyphicon-edit btn btn-primary"></i>
-        <i class="glyphicon glyphicon-trash btn btn-danger"></i>
+        <i class="glyphicon glyphicon-trash btn btn-danger" (click)="eliminarUsuario(pp.iidusuario)"></i>
       </td>
     </tr>
   </tbody>

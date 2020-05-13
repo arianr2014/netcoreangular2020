@@ -40,6 +40,11 @@ import { ProductoFormMantenimientoComponent } from './components/producto-form-m
 import { NgxPaginationModule } from 'ngx-pagination';
 import { MantenimientoUsuarioComponent } from './components/mantenimiento-usuario/mantenimiento-usuario.component';
 import { UsuarioFormMantenimientoComponent } from './components/usuario-form-mantenimiento/usuario-form-mantenimiento.component';
+import { LoginComponent } from './components/login/login.component';
+import { PaginaErrorLoginComponent } from './components/pagina-error-login/pagina-error-login.component';
+import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/permiso-error-pagina.component';
+
+//Guards
 
 @NgModule({
   declarations: [
@@ -66,7 +71,10 @@ import { UsuarioFormMantenimientoComponent } from './components/usuario-form-man
     MantenimientoProductoComponent,
     ProductoFormMantenimientoComponent,
     MantenimientoUsuarioComponent,
-    UsuarioFormMantenimientoComponent
+    UsuarioFormMantenimientoComponent,
+    LoginComponent,
+    PaginaErrorLoginComponent,
+    PermisoErrorPaginaComponent
   ],
   imports: [
     HttpModule,
@@ -87,6 +95,11 @@ import { UsuarioFormMantenimientoComponent } from './components/usuario-form-man
       { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent },
       { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent },
       { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent },
+      { path: 'login', component: LoginComponent },
+
+      { path: 'pagina-error', component: PaginaErrorLoginComponent },
+      { path: 'pagina-error-permiso', component: PermisoErrorPaginaComponent },
+
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'diasemana', component: DiasSemana },
     ])
