@@ -45,6 +45,8 @@ import { PaginaErrorLoginComponent } from './components/pagina-error-login/pagin
 import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/permiso-error-pagina.component';
 
 //Guards
+import { SeguridadGuard } from './components/guards/seguridad.guard';
+import { ComponenteBienvenidaComponent } from './components/componente-bienvenida/componente-bienvenida.component'
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/p
     UsuarioFormMantenimientoComponent,
     LoginComponent,
     PaginaErrorLoginComponent,
-    PermisoErrorPaginaComponent
+    PermisoErrorPaginaComponent,
+    ComponenteBienvenidaComponent
   ],
   imports: [
     HttpModule,
@@ -85,9 +88,9 @@ import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/p
     NgxPaginationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'filtradoproductonombre', component: FiltradoProductoNombreComponent },
-      { path: 'filtradoproductocategoria', component: FiltradoProductoCategoriaComponent },
-      { path: 'filtradopersonanombrecompleto', component: FiltradoPersonaNombreCompletoComponent },
+      { path: 'filtradoproductonombre', component: FiltradoProductoNombreComponent, canActivate: [SeguridadGuard] }, //areyes canActivate: [SeguridadGuard] se usa para agregar seguridad de ingreso a la pagina
+      { path: 'filtradoproductocategoria', component: FiltradoProductoCategoriaComponent, canActivate: [SeguridadGuard] },//areyes canActivate: [SeguridadGuard] se usa para agregar seguridad de ingreso a la pagina
+      { path: 'filtradopersonanombrecompleto', component: FiltradoPersonaNombreCompletoComponent, canActivate: [SeguridadGuard] },//areyes canActivate: [SeguridadGuard] se usa para agregar seguridad de ingreso a la pagina
       { path: 'filtradotipousuario', component: FiltradoUsuarioTipoUsuarioComponent },
       { path: 'mantenimientopersona', component: MantenimientoPersonaComponent },
       { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent },
@@ -99,12 +102,13 @@ import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/p
 
       { path: 'pagina-error', component: PaginaErrorLoginComponent },
       { path: 'pagina-error-permiso', component: PermisoErrorPaginaComponent },
+      { path: 'componente-bienvenida', component: ComponenteBienvenidaComponent },
 
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'diasemana', component: DiasSemana },
     ])
   ],
-  providers: [ProductoService, CategoriaService, PersonaService, UsuarioService],
+  providers: [ProductoService, CategoriaService, PersonaService, UsuarioService, SeguridadGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

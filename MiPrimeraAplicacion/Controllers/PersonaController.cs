@@ -108,6 +108,7 @@ namespace MiPrimeraAplicacion.Controllers
                         oPersona.Telefono = oPersonaCLS.telefono;
                         oPersona.Fechanacimiento = oPersonaCLS.fechaNacimiento;
                         oPersona.Bhabilitado = 1;
+                        oPersona.Btieneusuario = 0;
                         bd.Persona.Add(oPersona);
                         bd.SaveChanges();
                         rpta = 1;

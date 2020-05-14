@@ -10,6 +10,11 @@ using MiPrimeraAplicacion.Clases;
 using MiPrimeraAplicacion.Models;
 
 
+
+using Microsoft.AspNetCore.Session;
+using Microsoft.AspNetCore.Http;
+
+
 namespace MiPrimeraAplicacion.Controllers
 {
     public class UsuarioController : Controller
@@ -130,7 +135,7 @@ namespace MiPrimeraAplicacion.Controllers
         [Route("api/usuario/recuperarUsuario/{iidUsuario}")]
         public UsuarioCLS RecuperarUsuario(int iidUsuario)
         {
-            using (BDRestauranteContext bd= new BDRestauranteContext())
+            using (BDRestauranteContext bd = new BDRestauranteContext())
             {
                 UsuarioCLS oUsuarioCLS = new UsuarioCLS();
                 Usuario oUsuario = bd.Usuario.Where(p => p.Iidusuario == iidUsuario).First();
@@ -152,7 +157,7 @@ namespace MiPrimeraAplicacion.Controllers
             int rpta = 0;
             try {
 
-                using (BDRestauranteContext bd= new BDRestauranteContext())
+                using (BDRestauranteContext bd = new BDRestauranteContext())
                 {
 
                     using (var transaccion = new TransactionScope())
@@ -166,7 +171,7 @@ namespace MiPrimeraAplicacion.Controllers
                             string clave = oUsuarioCLS.contra;
                             byte[] dataNoCifrada = Encoding.Default.GetBytes(clave);
 
-                            byte[] dataCifrada= sha.ComputeHash(dataNoCifrada);
+                            byte[] dataCifrada = sha.ComputeHash(dataNoCifrada);
                             string claveCifrada = BitConverter.ToString(dataCifrada).Replace("-", "");
                             oUsuario.Contra = claveCifrada;
                             oUsuario.Iidpersona = oUsuarioCLS.iidPersona;
@@ -187,9 +192,9 @@ namespace MiPrimeraAplicacion.Controllers
                         }
                         else {
 
-                          
+
                             Usuario oUsuario = bd.Usuario.Where(p => p.Iidusuario == oUsuarioCLS.iidusuario).First();
-                            
+
                             oUsuario.Nombreusuario = oUsuarioCLS.nombreUsuario;
                             oUsuario.Iidtipousuario = oUsuarioCLS.iidTipoUsuario;
                             bd.SaveChanges();
@@ -228,7 +233,7 @@ namespace MiPrimeraAplicacion.Controllers
                 }
 
 
-                    rpta = 1;
+                rpta = 1;
             }
             catch (Exception ex) {
                 rpta = 0;
@@ -238,23 +243,99 @@ namespace MiPrimeraAplicacion.Controllers
 
         [HttpPost]
         [Route("api/usuario/login")]
-        public int login(UsuarioCLS oUsuarioCLS)
+        public UsuarioCLS login([FromBody]UsuarioCLS oUsuarioCLS)
         {
 
             int rpta = 0;
+            UsuarioCLS ousuario = new UsuarioCLS();
             using (BDRestauranteContext bd = new BDRestauranteContext())
             {
+
 
                 SHA256Managed sha = new SHA256Managed();
                 byte[] dataNoCifrada = Encoding.Default.GetBytes(oUsuarioCLS.contra);
                 byte[] dataCifrada = sha.ComputeHash(dataNoCifrada);
                 string claveCifrada = BitConverter.ToString(dataCifrada).Replace("-", "");
 
-                rpta = bd.Usuario.Where(p => p.Nombreusuario == oUsuarioCLS.nombreUsuario && p.Contra == claveCifrada).Count();
+                rpta = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == oUsuarioCLS.nombreUsuario.ToUpper() && p.Contra == claveCifrada).Count();
 
+                if (rpta == 1)
+                {
+                    Usuario oUsuario = bd.Usuario.Where(p => p.Nombreusuario.ToUpper() == oUsuarioCLS.nombreUsuario.ToUpper() && p.Contra == claveCifrada).First();
+
+                    HttpContext.Session.SetString("usuario", oUsuario.Iidusuario.ToString());
+                    HttpContext.Session.SetString("tipoUsuario", oUsuario.Iidtipousuario.ToString());
+
+                    ousuario.iidusuario = oUsuario.Iidusuario;
+                    ousuario.nombreUsuario = oUsuario.Nombreusuario;
+
+                }
+                else {
+                    ousuario.iidusuario = 0;
+                    ousuario.nombreUsuario = "";
+                }
+            }
+            return ousuario;
+        }
+
+        [HttpGet]
+        [Route("api/usuario/obtenerVariableSesion")]
+        public SeguridadCLS ObtenerVariableSesion() {
+            SeguridadCLS oSeguridadCLS = new SeguridadCLS();
+            string variableSession = HttpContext.Session.GetString("usuario");
+            if (variableSession == null)
+            {
+                oSeguridadCLS.valor = "";
+            }
+            else {
+                oSeguridadCLS.valor = variableSession;
+            }
+            return oSeguridadCLS;
+        }
+
+
+        [HttpGet] 
+        [Route("api/usuario/listarPaginas")]
+        public List<PaginaCLS> ListarPaginas() {
+
+            List<PaginaCLS> listaPagina = new List<PaginaCLS>();
+            int idTipoUsuario =int.Parse(HttpContext.Session.GetString("tipoUsuario"));
+
+            using (BDRestauranteContext bd = new BDRestauranteContext()) {
+                listaPagina = (from paginaTipo in bd.PaginaTipoUsuario
+                               join pagina in bd.Pagina
+                               on paginaTipo.Iidpagina equals pagina.Iidpagina
+                               where paginaTipo.Bhabilitado == 1
+                               && paginaTipo.Iidtipousuario == idTipoUsuario
+                               select new PaginaCLS
+                               {
+                                   iidPagina = pagina.Iidpagina,
+                                   accion = pagina.Accion,
+                                   mensaje = pagina.Mensaje,
+                                   bhabilitado = (int)pagina.Bhabilitado
+
+                               }).ToList();
 
             }
-            return rpta;
+            return listaPagina;
+        }
+
+        [HttpGet]
+        [Route("api/usuario/cerrarSesion")]
+        public SeguridadCLS CerraSesion() {
+            SeguridadCLS oSeguridadCLS = new SeguridadCLS();
+            try
+            {
+                HttpContext.Session.Remove("usuario");
+                HttpContext.Session.Remove("tipoUsuario");
+                oSeguridadCLS.valor = "OK";
+
+            }
+            catch (Exception ex) {
+                oSeguridadCLS.valor = "";
+            }
+
+            return oSeguridadCLS;
         }
 
 

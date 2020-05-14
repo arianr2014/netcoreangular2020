@@ -51,12 +51,18 @@
               </a>
             </li>
 
-
             <li [routerLinkActive]='["link-active"]'>
-              <a [routerLink]='["/login"]' (click)='collapse()'>
+              <a [routerLink]='["/login"]' *ngIf="login==false">
                 <span class='glyphicon glyphicon-th-list'></span> Login
               </a>
             </li>
+
+            <li [routerLinkActive]='["link-active"]'>
+              <a (click)="cerrarSesion()" *ngIf="login==true">
+                <span class='glyphicon glyphicon-th-list'></span> Cerrar Sesion
+              </a>
+            </li>
+
 
             <li [routerLinkActive]='["link-active"]'>
               <a [routerLink]='["/fetch-data"]' (click)='collapse()'>

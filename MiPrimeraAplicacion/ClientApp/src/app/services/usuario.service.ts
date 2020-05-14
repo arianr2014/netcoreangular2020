@@ -2,12 +2,14 @@ import { Injectable, Inject  } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { resetFakeAsyncZone } from '@angular/core/testing';
+import { Router } from '@angular/router';
+
 
 @Injectable()
 export class UsuarioService {
 
   urlBase: string = "";
-  constructor(private http: Http, @Inject('BASE_URL') baseUrl: string) {
+  constructor(private http: Http, @Inject('BASE_URL') baseUrl: string, private router:Router) {
     this.urlBase = baseUrl;
   }
 
@@ -44,8 +46,55 @@ export class UsuarioService {
   }
 
   public login(usuario) {
-    return this.http.get(this.urlBase + "api/usuario/login/",usuario)
+    return this.http.post(this.urlBase + "api/usuario/login/",usuario)
       .map(res => res.json());
    }
+
+
+  public obtenerVariableSescion() {
+    //se comenta pra trabajar con el guards
+    //return this.http.get(this.urlBase + "api/usuario/obtenerVariableSesion")
+    //  .map(res => res.json());
+
+
+    return this.http.get(this.urlBase + "api/usuario/obtenerVariableSesion")
+      .map(res => {
+        var data = res.json();
+        var informacion = data.valor;
+        if (informacion == "") {
+         this.router.navigate(["/pagina-error"]); //<= si queremos redireccionar a otra pagina
+
+          //return false;//<= si queremos que no ingrese
+        } else {
+          return true;
+        }
+
+      });
+  }
+
+   //areyes para el manejo de sesiones   menus dinamicos
+  public obtenerSesion() {
+   
+    return this.http.get(this.urlBase + "api/usuario/obtenerVariableSesion")
+      .map(res => {
+        var data = res.json();
+        var informacion = data.valor;
+        if (informacion == "") {
+          return false;
+        } else {
+          return true;
+        }
+
+      });
+  }
+   //areyes para el manejo de sesiones   menus dinamicos
+  public cerrarSesion() {
+    return this.http.get(this.urlBase + "api/usuario/cerrarSesion")
+      .map(res => res.json());
+  }
+
+
+
+
 
  }
