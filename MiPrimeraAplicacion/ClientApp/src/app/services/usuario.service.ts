@@ -93,6 +93,11 @@ export class UsuarioService {
       .map(res => res.json());
   }
 
+  public listarPaginas() {
+    return this.http.get(this.urlBase + "api/usuario/listarPaginas")
+      .map(res => res.json());
+  }
+
 
 
 
