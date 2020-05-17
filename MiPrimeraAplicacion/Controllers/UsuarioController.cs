@@ -282,13 +282,44 @@ namespace MiPrimeraAplicacion.Controllers
         [Route("api/usuario/obtenerVariableSesion")]
         public SeguridadCLS ObtenerVariableSesion() {
             SeguridadCLS oSeguridadCLS = new SeguridadCLS();
+            
+
             string variableSession = HttpContext.Session.GetString("usuario");
+           
             if (variableSession == null)
             {
                 oSeguridadCLS.valor = "";
             }
             else {
                 oSeguridadCLS.valor = variableSession;
+
+                List<PaginaCLS> listaPagina = new List<PaginaCLS>();
+                int idTipoUsuario = int.Parse(HttpContext.Session.GetString("tipoUsuario"));
+                int idUsuario = int.Parse(HttpContext.Session.GetString("usuario"));
+
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+                    listaPagina = (from usuario in bd.Usuario
+                                     join tipoUsuario in bd.TipoUsuario
+                                     on usuario.Iidtipousuario equals tipoUsuario.Iidtipousuario
+                                     join paginaTipo in bd.PaginaTipoUsuario
+                                     on usuario.Iidtipousuario equals paginaTipo.Iidtipousuario
+                                     join pagina in bd.Pagina
+                                     on paginaTipo.Iidpagina equals pagina.Iidpagina
+                                     where usuario.Iidusuario == idUsuario
+                                     && usuario.Iidtipousuario == idTipoUsuario
+                                     select new PaginaCLS
+                                     {
+
+
+                                         accion = pagina.Accion.Substring(1)//areyes no consideramos el primer caracter
+
+                                     }).ToList();
+
+                    oSeguridadCLS.lista = listaPagina;
+
+                }
+
             }
             return oSeguridadCLS;
         }

@@ -51,7 +51,8 @@ export class UsuarioService {
    }
 
 
-  public obtenerVariableSescion() {
+  //areyes recibe el parametro de la pagina que quiere ingresar
+  public obtenerVariableSescion(next) {
     //se comenta pra trabajar con el guards
     //return this.http.get(this.urlBase + "api/usuario/obtenerVariableSesion")
     //  .map(res => res.json());
@@ -66,7 +67,25 @@ export class UsuarioService {
 
           //return false;//<= si queremos que no ingrese
         } else {
-          return true;
+
+          //logica para validar pagina
+          var pagina = next["url"][0].path; //obtenemos el  nombre la pagina q intenta ingresar
+          if (data.lista != null) {
+            var paginas = data.lista.map(pagina => pagina.accion); // nombre de la pgina en base de datos
+            if (paginas.indexOf(pagina) > -1 && pagina != "Login") {
+              return true; // tiene acceso a la pagina
+            } else {
+              //lo redireccionamos a la pagina de error
+              this.router.navigate(["/pagina-error-permiso"]); //<= si queremos redireccionar a otra pagina
+              return false; // no tiene acceso a la pagina
+            }
+          }
+          else {
+            //lo redireccionamos a la pagina de error
+            this.router.navigate(["/pagina-error-permiso"]); //<= si queremos redireccionar a otra pagina
+            return false; // no tiene acceso a la pagina
+          }
+
         }
 
       });

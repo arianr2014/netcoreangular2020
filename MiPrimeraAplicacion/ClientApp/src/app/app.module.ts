@@ -91,13 +91,13 @@ import { ComponenteBienvenidaComponent } from './components/componente-bienvenid
       { path: 'filtradoproductonombre', component: FiltradoProductoNombreComponent, canActivate: [SeguridadGuard] }, //areyes canActivate: [SeguridadGuard] se usa para agregar seguridad de ingreso a la pagina
       { path: 'filtradoproductocategoria', component: FiltradoProductoCategoriaComponent, canActivate: [SeguridadGuard] },//areyes canActivate: [SeguridadGuard] se usa para agregar seguridad de ingreso a la pagina
       { path: 'filtradopersonanombrecompleto', component: FiltradoPersonaNombreCompletoComponent, canActivate: [SeguridadGuard] },//areyes canActivate: [SeguridadGuard] se usa para agregar seguridad de ingreso a la pagina
-      { path: 'filtradotipousuario', component: FiltradoUsuarioTipoUsuarioComponent },
-      { path: 'mantenimientopersona', component: MantenimientoPersonaComponent },
-      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent },
-      { path: 'mantenimiento-producto', component: MantenimientoProductoComponent },
+      { path: 'filtradotipousuario', component: FiltradoUsuarioTipoUsuarioComponent, canActivate: [SeguridadGuard]},
+      { path: 'mantenimientopersona', component: MantenimientoPersonaComponent, canActivate: [SeguridadGuard]},
+      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent, canActivate: [SeguridadGuard]},
+      { path: 'mantenimiento-producto', component: MantenimientoProductoComponent, canActivate: [SeguridadGuard]},
       { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent },
-      { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent },
-      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent },
+      { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent, canActivate: [SeguridadGuard] },
+      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent, canActivate: [SeguridadGuard]},
       { path: 'login', component: LoginComponent },
 
       { path: 'pagina-error', component: PaginaErrorLoginComponent },
