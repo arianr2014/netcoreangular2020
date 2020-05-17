@@ -43,7 +43,7 @@ export class NavMenuComponent implements OnInit {
     this.usuarioService.cerrarSesion().subscribe(res => {
       if (res.valor == "OK") {
         this.login = false;// con esto ocultamos o mostramos las opciones del menu
-
+        this.router.navigate(["/login"]); //en caso no hay iniciado sesion redireccionamos al login
       }
     })
   }

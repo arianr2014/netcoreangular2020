@@ -13,11 +13,14 @@ export class SeguridadGuard implements CanActivate {
 
   }
   canActivate(
-    next: ActivatedRouteSnapshot,
+    next: ActivatedRouteSnapshot, //areyes next me da informacion a la pagina que se quiere ingresar
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
     //this.route.navigate(["pagina-error"]);
     //return false;
 
-    return this.usuarioService.obtenerVariableSescion();
+    //areyes next me da informacion a la pagina que se quiere ingresar
+    //se la pasamos a la obtencion de variable se sesion para comparar
+    //contra el listado de pagina y ver si tiene acceso
+    return this.usuarioService.obtenerVariableSescion(next);
   }
 }

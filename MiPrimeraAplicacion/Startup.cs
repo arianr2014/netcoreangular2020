@@ -27,7 +27,7 @@ namespace MiPrimeraAplicacion
 
             services.AddSession(options =>
             {
-                options.IdleTimeout = TimeSpan.FromSeconds(10);
+                options.IdleTimeout = TimeSpan.FromSeconds(600);//areyes subimos el tiempo de sesion para que expire las variables de sesion
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
