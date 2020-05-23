@@ -13,12 +13,12 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class UsuarioFormMantenimientoComponent implements OnInit {
 
-  usuario: FormGroup;
-  parametro: string;
-  titulo: string;
-  tiposUsuarios: any;
-  personas: any;
-  ver: boolean;
+  usuario: FormGroup; //areyes para dar soporte a los controles y mapeo correspondiente
+  parametro: string; //areyes para recibir parametro nuevo o id del registro en modo edicion
+  titulo: string; // areyes para agregar titulo dinamico de nuevo o editar
+  tiposUsuarios: any; // areyes para llenar combobox en la pagina
+  personas: any; //areyes para llenar combobox en la pagina
+  ver: boolean;  //areyes para ocultar o mostrar div controles en la pagina
   constructor(private usuarioService: UsuarioService, private route: Router,
     private activatedRoute: ActivatedRoute,
     private personaService:PersonaService) {

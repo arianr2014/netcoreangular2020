@@ -46,7 +46,10 @@ import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/p
 
 //Guards
 import { SeguridadGuard } from './components/guards/seguridad.guard';
-import { ComponenteBienvenidaComponent } from './components/componente-bienvenida/componente-bienvenida.component'
+import { ComponenteBienvenidaComponent } from './components/componente-bienvenida/componente-bienvenida.component';
+import { MantenimientoTipousuarioComponent } from './components/mantenimiento-tipousuario/mantenimiento-tipousuario.component';
+import { TipoUsuarioFormMantenimientoComponent } from './components/tipo-usuario-form-mantenimiento/tipo-usuario-form-mantenimiento.component';
+import { TablaTipoUsusarioComponent } from './components/tabla-tipo-ususario/tabla-tipo-ususario.component'
 
 @NgModule({
   declarations: [
@@ -77,7 +80,10 @@ import { ComponenteBienvenidaComponent } from './components/componente-bienvenid
     LoginComponent,
     PaginaErrorLoginComponent,
     PermisoErrorPaginaComponent,
-    ComponenteBienvenidaComponent
+    ComponenteBienvenidaComponent,
+    MantenimientoTipousuarioComponent,
+    TipoUsuarioFormMantenimientoComponent,
+    TablaTipoUsusarioComponent
   ],
   imports: [
     HttpModule,
@@ -103,6 +109,11 @@ import { ComponenteBienvenidaComponent } from './components/componente-bienvenid
       { path: 'pagina-error', component: PaginaErrorLoginComponent },
       { path: 'pagina-error-permiso', component: PermisoErrorPaginaComponent },
       { path: 'componente-bienvenida', component: ComponenteBienvenidaComponent },
+
+      //areyes rutas para mantenimiento de tipo usuario
+      { path: 'mantenimiento-tipoUsuario', component: MantenimientoTipousuarioComponent, canActivate: [SeguridadGuard]},
+      { path: 'tipoUsuario-form-mantenimiento/:id', component: TipoUsuarioFormMantenimientoComponent},
+
 
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'diasemana', component: DiasSemana },

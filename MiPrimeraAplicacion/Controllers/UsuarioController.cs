@@ -216,8 +216,33 @@ namespace MiPrimeraAplicacion.Controllers
 
 
         [HttpGet]
-        [Route("api/usuario/eliminarUsuario/{idUsuario}")]
+        [Route("api/usuario/eliminarTipoUsuario/{idTipoUsuario}")]
+        public int EliminarTipoUsuario(int idTipoUsuario)
+        {
 
+            int rpta = 0;
+            try
+            {
+                using (BDRestauranteContext bd = new BDRestauranteContext())
+                {
+
+                    TipoUsuario oTipoUsuario = bd.TipoUsuario.Where(p => p.Iidtipousuario == idTipoUsuario).First();
+                    oTipoUsuario.Bhabilitado = 0;
+                    bd.SaveChanges();
+                }
+
+                rpta = 1;
+            }
+            catch (Exception ex)
+            {
+                rpta = 0;
+            }
+            return rpta;
+        }
+
+
+        [HttpGet]
+        [Route("api/usuario/eliminarUsuario/{idUsuario}")]
         public int EliminarUsuario(int idUsuario) {
 
             int rpta = 0;
@@ -228,10 +253,7 @@ namespace MiPrimeraAplicacion.Controllers
                     Usuario oUsuario = bd.Usuario.Where(p => p.Iidusuario == idUsuario).First();
                     oUsuario.Bhabilitado = 0;
                     bd.SaveChanges();
-
-
                 }
-
 
                 rpta = 1;
             }
