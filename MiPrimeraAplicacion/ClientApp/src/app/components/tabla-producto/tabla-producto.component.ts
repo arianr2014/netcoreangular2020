@@ -11,7 +11,7 @@ export class TablaProductoComponent implements OnInit {
 
   @Input() productos: any;
   @Input() isMantenimiento = false;
-  p: number = 1;
+  p: number = 1; //areyes variable se usa para el paginado
   cabeceras: string[] = ["Id Producto", "Nombre", "Precio", "Stock", "Nombre Categoria"];
 
   constructor(private productoService: ProductoService) {

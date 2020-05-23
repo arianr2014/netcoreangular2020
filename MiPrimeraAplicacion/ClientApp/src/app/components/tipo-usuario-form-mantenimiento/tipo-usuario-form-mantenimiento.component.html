@@ -1,0 +1,58 @@
+<h1>{{titulo}}</h1>
+
+<div>
+  <div class="col-md-12">
+
+    <form [formGroup]="tipoUsuario" (ngSubmit)="guardarDatos()">
+
+      <div class="form-group">
+        <label>Id Tipo Usuario</label>
+        <input type="text" readonly class="form-control" formControlName="iidtipousuario" />
+      </div>
+
+      <div class="form-group">
+        <label>Nombre Tipo Usuario</label>
+        <input type="text" class="form-control" formControlName="nombre" />
+        <div style="color:red" *ngIf="tipoUsuario.controls['nombre'].errors?.required">
+          El nombre es obligatorio
+        </div>
+        <div style="color:red" *ngIf="tipoUsuario.controls['nombre'].errors?.maxlength">
+          Supero la longitud maxima
+        </div>
+
+      </div>
+
+      <div class="form-group" >
+        <label>Descripcion</label>
+        <input type="text" class="form-control" formControlName="descripcion" />
+        <div style="color:red" *ngIf="tipoUsuario.controls['descripcion'].errors?.required">
+          La descripcion es obligatorio
+        </div>
+        <div style="color:red" *ngIf="tipoUsuario.controls['descripcion'].errors?.maxlength">
+          Supero la longitud maxima
+        </div>
+
+
+      </div>
+
+      <div class="form-group" >
+        <label>Seleccione las paginas</label>
+        <div *ngFor="let pagina of paginas">
+            <input class="check" [name]="pagina.iidPagina" (change)="verCheck()" type="checkbox"/>
+          <label>{{pagina.mensaje}}</label>
+        </div>
+      </div>
+
+  
+ 
+      <div>
+        <input type="button" value="Enviar" type="submit" class="btn btn-primary" />
+        <input type="button" value="Regresar" [routerLink]="['/mantenimiento-tipoUsuario']" class="btn btn-danger" />
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>

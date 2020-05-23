@@ -9,7 +9,7 @@ import { Router } from '@angular/router';
 export class UsuarioService {
 
   urlBase: string = "";
-  constructor(private http: Http, @Inject('BASE_URL') baseUrl: string, private router:Router) {
+  constructor(private http: Http, @Inject('BASE_URL') baseUrl: string, private router: Router) {
     this.urlBase = baseUrl;
   }
 
@@ -21,7 +21,7 @@ export class UsuarioService {
   }
 
   public getUsuarioPorTipo(idTipo) {
-    return this.http.get(this.urlBase + "api/Usuario/listarUsuarioPorTipo/"+idTipo).map(res => res.json());
+    return this.http.get(this.urlBase + "api/Usuario/listarUsuarioPorTipo/" + idTipo).map(res => res.json());
   }
 
 
@@ -31,7 +31,7 @@ export class UsuarioService {
   }
 
   public recuperarUsuario(idUsuario) {
-    return this.http.get(this.urlBase + "api/Usuario/recuperarUsuario/" + idUsuario )
+    return this.http.get(this.urlBase + "api/Usuario/recuperarUsuario/" + idUsuario)
       .map(res => res.json());
   }
 
@@ -46,9 +46,9 @@ export class UsuarioService {
   }
 
   public login(usuario) {
-    return this.http.post(this.urlBase + "api/usuario/login/",usuario)
+    return this.http.post(this.urlBase + "api/usuario/login/", usuario)
       .map(res => res.json());
-   }
+  }
 
 
   //areyes recibe el parametro de la pagina que quiere ingresar
@@ -63,7 +63,7 @@ export class UsuarioService {
         var data = res.json();
         var informacion = data.valor;
         if (informacion == "") {
-         this.router.navigate(["/pagina-error"]); //<= si queremos redireccionar a otra pagina
+          this.router.navigate(["/pagina-error"]); //<= si queremos redireccionar a otra pagina
 
           //return false;//<= si queremos que no ingrese
         } else {
@@ -91,9 +91,9 @@ export class UsuarioService {
       });
   }
 
-   //areyes para el manejo de sesiones   menus dinamicos
+  //areyes para el manejo de sesiones   menus dinamicos
   public obtenerSesion() {
-   
+
     return this.http.get(this.urlBase + "api/usuario/obtenerVariableSesion")
       .map(res => {
         var data = res.json();
@@ -106,7 +106,7 @@ export class UsuarioService {
 
       });
   }
-   //areyes para el manejo de sesiones   menus dinamicos
+  //areyes para el manejo de sesiones   menus dinamicos
   public cerrarSesion() {
     return this.http.get(this.urlBase + "api/usuario/cerrarSesion")
       .map(res => res.json());
@@ -118,7 +118,30 @@ export class UsuarioService {
   }
 
 
+  public listarTipoUsuarios() {
+    return this.http.get(this.urlBase + "api/TipoUsuario/listarTipoUsuario")
+      .map(res => res.json());
+  }
 
+  public listarPaginasTipoUsuario() {
+    return this.http.get(this.urlBase + "api/TipoUsuario/listarPaginasTipoUsuario")
+      .map(res => res.json());
+  }
 
+  public ListarPaginasRecuperar(idtipoUsuario) {
+    return this.http.get(this.urlBase + "api/TipoUsuario/listarPaginasRecuperar/" + idtipoUsuario)
+      .map(res => res.json());
+  }
+
+  public GuardarDatosTipoUsuario(TipoUsuarioCLS) {
+    var url = this.urlBase + "api/TipoUsuario/guardarDatosTipoUsuario";
+    return this.http.post(url, TipoUsuarioCLS).map(res => res.json());
+
+  }
+
+  public eliminarTipoUsuario(idTipoUsuario) {
+    return this.http.get(this.urlBase + "api/Usuario/eliminarTipoUsuario/" + idTipoUsuario)
+      .map(res => res.json());
+  }
 
  }
