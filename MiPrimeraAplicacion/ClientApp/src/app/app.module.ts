@@ -19,7 +19,7 @@ import { ProductoService } from './services/Producto.Service'
 import { CategoriaService } from './services/categoria.service'
 import { PersonaService } from './services/persona.service'
 import { UsuarioService } from './services/usuario.service'
-
+import { PaginaService } from './services/pagina.service'
 
 
 import { HttpModule } from '@angular/http';
@@ -49,7 +49,11 @@ import { SeguridadGuard } from './components/guards/seguridad.guard';
 import { ComponenteBienvenidaComponent } from './components/componente-bienvenida/componente-bienvenida.component';
 import { MantenimientoTipousuarioComponent } from './components/mantenimiento-tipousuario/mantenimiento-tipousuario.component';
 import { TipoUsuarioFormMantenimientoComponent } from './components/tipo-usuario-form-mantenimiento/tipo-usuario-form-mantenimiento.component';
-import { TablaTipoUsusarioComponent } from './components/tabla-tipo-ususario/tabla-tipo-ususario.component'
+import { TablaTipoUsusarioComponent } from './components/tabla-tipo-ususario/tabla-tipo-ususario.component';
+import { TablaPaginaComponent } from './components/tabla-pagina/tabla-pagina.component';
+import { MantenimientoPaginaComponent } from './components/mantenimiento-pagina/mantenimiento-pagina.component';
+import { PaginaFormMantenimientoComponent } from './components/pagina-form-mantenimiento/pagina-form-mantenimiento.component';
+import { NoEncontroInformacionComponent } from './components/no-encontro-informacion/no-encontro-informacion.component';
 
 @NgModule({
   declarations: [
@@ -83,7 +87,11 @@ import { TablaTipoUsusarioComponent } from './components/tabla-tipo-ususario/tab
     ComponenteBienvenidaComponent,
     MantenimientoTipousuarioComponent,
     TipoUsuarioFormMantenimientoComponent,
-    TablaTipoUsusarioComponent
+    TablaTipoUsusarioComponent,
+    TablaPaginaComponent,
+    MantenimientoPaginaComponent,
+    PaginaFormMantenimientoComponent,
+    NoEncontroInformacionComponent
   ],
   imports: [
     HttpModule,
@@ -99,11 +107,11 @@ import { TablaTipoUsusarioComponent } from './components/tabla-tipo-ususario/tab
       { path: 'filtradopersonanombrecompleto', component: FiltradoPersonaNombreCompletoComponent, canActivate: [SeguridadGuard] },//areyes canActivate: [SeguridadGuard] se usa para agregar seguridad de ingreso a la pagina
       { path: 'filtradotipousuario', component: FiltradoUsuarioTipoUsuarioComponent, canActivate: [SeguridadGuard]},
       { path: 'mantenimientopersona', component: MantenimientoPersonaComponent, canActivate: [SeguridadGuard]},
-      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent, canActivate: [SeguridadGuard]},
+      { path: 'persona-form-mantenimiento/:id', component: PersonaFormMantenimientoComponent},
       { path: 'mantenimiento-producto', component: MantenimientoProductoComponent, canActivate: [SeguridadGuard]},
       { path: 'producto-form-mantenimiento/:id', component: ProductoFormMantenimientoComponent },
       { path: 'mantenimiento-usuario', component: MantenimientoUsuarioComponent, canActivate: [SeguridadGuard] },
-      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent, canActivate: [SeguridadGuard]},
+      { path: 'usuario-form-mantenimiento/:id', component: UsuarioFormMantenimientoComponent},
       { path: 'login', component: LoginComponent },
 
       { path: 'pagina-error', component: PaginaErrorLoginComponent },
@@ -113,13 +121,16 @@ import { TablaTipoUsusarioComponent } from './components/tabla-tipo-ususario/tab
       //areyes rutas para mantenimiento de tipo usuario
       { path: 'mantenimiento-tipoUsuario', component: MantenimientoTipousuarioComponent, canActivate: [SeguridadGuard]},
       { path: 'tipoUsuario-form-mantenimiento/:id', component: TipoUsuarioFormMantenimientoComponent},
-
+      //areyes mantenimiento para paginas
+      { path: 'mantenimiento-pagina', component: MantenimientoPaginaComponent, canActivate: [SeguridadGuard]},
+      { path: 'pagina-form-mantenimiento/:id', component: PaginaFormMantenimientoComponent },
+     
 
       { path: 'fetch-data', component: FetchDataComponent },
       { path: 'diasemana', component: DiasSemana },
     ])
   ],
-  providers: [ProductoService, CategoriaService, PersonaService, UsuarioService, SeguridadGuard],
+  providers: [ProductoService, CategoriaService, PersonaService, UsuarioService, SeguridadGuard, PaginaService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,0 +1,11 @@
+<a [routerLink]="['/pagina-form-mantenimiento','nuevo']" class="btn btn-primary">Nuevo</a>
+
+<div id="divMensaje" class="alert alert-success " *ngIf ="ver==true">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <a class="icon-Mantenimiento16-msg-ok"></a>
+  <label id="al-success">{{mesajeGuardarDatos}}</label>
+
+</div>
+
+
+<tabla-pagina [isMantenimiento]="true"></tabla-pagina>
